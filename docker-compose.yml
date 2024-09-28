@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  web: 
+    build: ./user-service
+    env_file:
+      - ./user-service/.env
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - mongodb
+      - redis
+  mongodb:
+    image: mongo:latest
+    env_file:
+      - ./user-service/.env
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+  redis:
+    image: redis:alpine
+    env_file:
+      - ./user-service/.env
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
